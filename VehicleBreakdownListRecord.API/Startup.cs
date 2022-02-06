@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +10,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using VehicleBreakdownListRecord.API.Filters;
 using VehicleBreakdownRecor.Business.Concretes;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecor.Business.Mapping;
+using VehicleBreakdownRecor.Business.Validation;
 using VehicleBreakdownRecord.DAL.Concretes;
 using VehicleBreakdownRecord.DAL.Interfaces;
 using VehicleBreakdownRecord.Entity.DTOs;
@@ -21,17 +26,12 @@ namespace VehicleBreakdownListRecord.API
 {
     public class Startup
     {
-        /*
+        /*     ToDoList
          *[x] Add Swagger
          *[x] Add MapProfile
-         *[ ] Add Attribute for Validation
-         *[ ] Add Filters for Exeption
+         *[x] Add Filter Attribute for Validation
+         *[ ] Add MiddleWare for Exeption
          *[ ] Add AutoFact Scopes
-         *
-         *
-         *
-         *
-         *here new comment
          */
         public Startup(IConfiguration configuration)
         {
@@ -44,14 +44,26 @@ namespace VehicleBreakdownListRecord.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddScoped<IBaseInterface<Vehicle>,VehicleRepository> ();
-            services.AddScoped<IBaseInterface<BreakdownList>,BreakdownListRepository> ();
-            services.AddScoped<IBaseBusiness<Vehicle>,VehicleBusiness> ();
-            services.AddScoped<IBaseBusiness<BreakdownListDto>,BreakdownListBusiness> ();
+            services.AddControllers(option =>
+            {
+                option.Filters.Add(new ValidateFilterAttribute());
+            })
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(VehicleDtoValidator)))
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(VehicleCommentDtoValidator)))
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(BreakdownListDtoValidator)));
 
-            services.AddScoped<IVehicleBusiness, VehicleBusiness> ();
-            services.AddScoped<IVehicleRepository, VehicleRepository> ();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
+            services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
+            services.AddScoped<IBaseBusiness<Vehicle>, VehicleBusiness>();
+            services.AddScoped<IBaseBusiness<BreakdownListDto>, BreakdownListBusiness>();
+
+            services.AddScoped<IVehicleBusiness, VehicleBusiness>();
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddSwaggerDocument();
             services.AddAutoMapper(typeof(MapProfile));
         }
