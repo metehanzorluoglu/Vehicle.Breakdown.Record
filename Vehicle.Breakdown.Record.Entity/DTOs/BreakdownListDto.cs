@@ -6,7 +6,6 @@ namespace VehicleBreakdownRecord.Entity.DTOs
 {
     public class BreakdownListDto:BaseDto
     {
-        public int Id { get; set; }
         public string BreakdownName { get; set; }
     }
 }
