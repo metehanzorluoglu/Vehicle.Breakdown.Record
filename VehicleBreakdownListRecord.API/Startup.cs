@@ -22,9 +22,12 @@ namespace VehicleBreakdownListRecord.API
     public class Startup
     {
         /*
+         *[x] Add Swagger
+         *[x] Add MapProfile
          *[ ] Add Attribute for Validation
          *[ ] Add Filters for Exeption
          *[ ] Add AutoFact Scopes
+         *
          */
         public Startup(IConfiguration configuration)
         {
