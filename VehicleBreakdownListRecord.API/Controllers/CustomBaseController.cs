@@ -6,10 +6,10 @@ namespace VehicleBreakdownListRecord.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CostomBaseController : ControllerBase
+    public class CustomBaseController : ControllerBase
     {
         [NonAction]
-        public IActionResult CreateActionResult<T>(CostomResultDto<T> costomResultDto)
+        public IActionResult CreateActionResult<T>(CustomResultDto<T> costomResultDto)
         {
             if (costomResultDto.StatusCode==204)
                 return new ObjectResult(null)

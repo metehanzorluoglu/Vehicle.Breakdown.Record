@@ -5,7 +5,7 @@ using VehicleBreakdownRecord.Entity.Entities;
 
 namespace VehicleBreakdownRecord.Entity.DTOs
 {
-    public class VehicleWithBreakdownAndCommentDto: VehivleDto
+    public class VehicleWithBreakdownAndCommentDto: VehicleDto
     {
         //public int Id { get; set; }
         public List<BreakdownListDto> BreakdownList { get; set; }

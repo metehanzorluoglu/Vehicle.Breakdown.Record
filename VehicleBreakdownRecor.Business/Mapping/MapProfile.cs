@@ -12,7 +12,7 @@ namespace VehicleBreakdownRecor.Business.Mapping
     {
         public MapProfile()
         {
-            CreateMap<Vehicle,VehivleDto>().ReverseMap();
+            CreateMap<Vehicle,VehicleDto>().ReverseMap();
             CreateMap<Vehicle, VehicleUpdateDto>().ReverseMap();
             CreateMap<VehicleComment,VehicleCommentDto>().ReverseMap();
             CreateMap<BreakdownListDto,BreakdownListUpdateDto>().ReverseMap();
