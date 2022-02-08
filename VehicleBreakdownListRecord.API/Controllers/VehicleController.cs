@@ -38,7 +38,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpGet("[action]")]
         public IActionResult VehicleWithBC()
         {
-            return CreateActionResult(CostomResultDto<List<VehicleWithBreakdownAndCommentDto>>.Success(_vehicle.VehicleWithBreakdownListAndComment(),200));
+            return CreateActionResult(CustomResultDto<List<VehicleWithBreakdownAndCommentDto>>.Success(_vehicle.VehicleWithBreakdownListAndComment(),200));
         }
 
         //[HttpGet("[action]")]
@@ -53,36 +53,36 @@ namespace VehicleBreakdownListRecord.API.Controllers
         public IActionResult GetAll()
         {
             var vehicle= _vehicle.GetAll();
-            var vehicletDto = _mapper.Map<List<VehivleDto>>(vehicle.ToList());
-            return CreateActionResult(CostomResultDto<List<VehivleDto>>.Success(vehicletDto,200));
+            var vehicletDto = _mapper.Map<List<VehicleDto>>(vehicle.ToList());
+            return CreateActionResult(CustomResultDto<List<VehicleDto>>.Success(vehicletDto,200));
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var vehicle = _vehicle.GetById(id);
-            var vehicletDto = _mapper.Map<VehivleDto>(vehicle);
-            return CreateActionResult(CostomResultDto<VehivleDto>.Success(vehicletDto, 200));
+            var vehicletDto = _mapper.Map<VehicleDto>(vehicle);
+            return CreateActionResult(CustomResultDto<VehicleDto>.Success(vehicletDto, 200));
         }
 
         [HttpPost]
-        public IActionResult Add(VehivleDto vehicleDto)
+        public IActionResult Add(VehicleDto vehicleDto)
         {
             _vehicle.Add(_mapper.Map<Vehicle>(vehicleDto));
-            return CreateActionResult(CostomResultDto<NoContentDto>.Success(201));
+            return CreateActionResult(CustomResultDto<NoContentDto>.Success(201));
         }
         [HttpPut]
         public IActionResult Update(VehicleUpdateDto vehicleDto)
         {
             _vehicle.Update(_mapper.Map<Vehicle>(vehicleDto));
-            return CreateActionResult(CostomResultDto<NoContentDto>.Success(204));
+            return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _vehicle.Delete(id);
-            return CreateActionResult(CostomResultDto<NoContentDto>.Success(204));
+            return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VehicleBreakdownRecord.Entity.DTOs
 {
-    public class VehivleDto:BaseDto
+    public class VehicleDto:BaseDto
     {
         public string VehicleName { get; set; }
         public string VehicleOwnerName { get; set; }

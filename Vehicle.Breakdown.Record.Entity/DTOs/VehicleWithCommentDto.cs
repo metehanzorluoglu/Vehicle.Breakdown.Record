@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VehicleBreakdownRecord.Entity.DTOs
 {
-    public class VehicleWithCommentDto:VehivleDto
+    public class VehicleWithCommentDto:VehicleDto
     {
         public List<VehicleCommentDto> VehicleComments { get; set;}
         //public List<BreakdownListDto> VehicleBreakdownLists { get; set;}

@@ -6,7 +6,7 @@ using VehicleBreakdownRecord.Entity.DTOs;
 
 namespace VehicleBreakdownRecor.Business.Validation
 {
-    public class VehicleDtoValidator:AbstractValidator<VehivleDto>
+    public class VehicleDtoValidator:AbstractValidator<VehicleDto>
     {
         public VehicleDtoValidator()
         {
