@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecord.DAL.Interfaces;
 using VehicleBreakdownRecord.Entity.DTOs;

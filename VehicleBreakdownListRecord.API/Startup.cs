@@ -59,8 +59,11 @@ namespace VehicleBreakdownListRecord.API
 
             services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
             services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
+            services.AddScoped<IBaseInterface<VehicleComment>, VehicleCommentRepository>();
+
             services.AddScoped<IBaseBusiness<Vehicle>, VehicleBusiness>();
             services.AddScoped<IBaseBusiness<BreakdownListDto>, BreakdownListBusiness>();
+            services.AddScoped<IBaseBusiness<VehicleCommentDto>, VehicleCommentBusiness>();
 
             services.AddScoped<IVehicleBusiness, VehicleBusiness>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
