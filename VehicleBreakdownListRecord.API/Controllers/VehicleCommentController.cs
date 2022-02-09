@@ -25,7 +25,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
             _comment = comment;
             _mapper = mapper;
         }
-
+        
         [HttpGet]
         public IActionResult GetAll()
         {

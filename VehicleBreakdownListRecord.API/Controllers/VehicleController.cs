@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpGet("[action]")]
         public IActionResult VehicleWithBC()
         {
-            return CreateActionResult(CustomResultDto<List<VehicleWithBreakdownAndCommentDto>>.Success(_vehicle.VehicleWithBreakdownListAndComment(),200));
+            return CreateActionResult(CustomResultDto<List<VehicleWithBreakdownAndCommentDto>>.Success(_vehicle.VehicleWithBreakdownListAndComment(), 200));
         }
 
         //[HttpGet("[action]")]
@@ -52,9 +53,9 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var vehicle= _vehicle.GetAll();
+            var vehicle = _vehicle.GetAll();
             var vehicletDto = _mapper.Map<List<VehicleDto>>(vehicle.ToList());
-            return CreateActionResult(CustomResultDto<List<VehicleDto>>.Success(vehicletDto,200));
+            return CreateActionResult(CustomResultDto<List<VehicleDto>>.Success(vehicletDto, 200));
         }
 
         [HttpGet("{id}")]
@@ -83,6 +84,19 @@ namespace VehicleBreakdownListRecord.API.Controllers
         {
             _vehicle.Delete(id);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
+        }
+
+        [HttpPatch("patch/{id}")]
+        public IActionResult Patch(int id,  JsonPatchDocument<Vehicle> vehiclePatch)
+        {
+            var vehicleWithId=_vehicle.GetById(id);
+
+            vehiclePatch.ApplyTo(vehicleWithId);
+            var vehicleDto=_mapper.Map<VehicleDto>(vehicleWithId);
+            _vehicle.Update(vehicleWithId);
+
+            return CreateActionResult(CustomResultDto<VehicleDto>.Success(vehicleDto, 204));
+
         }
     }
 }

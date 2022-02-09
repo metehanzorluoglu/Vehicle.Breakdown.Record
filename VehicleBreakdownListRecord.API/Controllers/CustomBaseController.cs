@@ -4,6 +4,7 @@ using VehicleBreakdownRecord.Entity.DTOs;
 
 namespace VehicleBreakdownListRecord.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class CustomBaseController : ControllerBase

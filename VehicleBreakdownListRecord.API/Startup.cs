@@ -1,12 +1,15 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,9 @@ namespace VehicleBreakdownListRecord.API
          *[x] Add Filter Attribute for Validation
          *[ ] Add MiddleWare for Exeption
          *[ ] Add AutoFact Scopes
+         *[ ] Search InvalidModelStateResponseFactory
+         *[ ] Delegate Function 
+         *[x] json Patch 
          */
         public Startup(IConfiguration configuration)
         {
@@ -50,13 +56,19 @@ namespace VehicleBreakdownListRecord.API
             })
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(VehicleDtoValidator)))
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(VehicleCommentDtoValidator)))
-                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(BreakdownListDtoValidator)));
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining(typeof(BreakdownListDtoValidator)))
+                .AddNewtonsoftJson();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            services.AddFluentValidation(conf =>
+            {
+                conf.DisableDataAnnotationsValidation = true;
+                conf.ImplicitlyValidateChildProperties = true;
 
+            });
             services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
             services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
             services.AddScoped<IBaseInterface<VehicleComment>, VehicleCommentRepository>();
@@ -80,7 +92,22 @@ namespace VehicleBreakdownListRecord.API
             }
 
             app.UseRouting();
-
+            app.UseExceptionHandler(appError =>
+            {
+                appError.Run(async context =>
+                {
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error!=null)
+                    {
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(
+                            new
+                            {
+                                ResponseMessage = env.IsDevelopment() ? error.ToString() : "Internal Server Error!"
+                            }));
+                    }
+                });
+                
+            });
             app.UseAuthorization();
             app.UseOpenApi();
             app.UseSwaggerUi3();
