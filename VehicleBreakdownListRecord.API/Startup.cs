@@ -1,21 +1,12 @@
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using VehicleBreakdownListRecord.API.Filters;
+using VehicleBreakdownListRecord.API.Middlewares;
 using VehicleBreakdownRecor.Business.Concretes;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecor.Business.Mapping;
@@ -33,7 +24,7 @@ namespace VehicleBreakdownListRecord.API
          *[x] Add Swagger
          *[x] Add MapProfile
          *[x] Add Filter Attribute for Validation
-         *[ ] Add MiddleWare for Exeption
+         *[x] Add MiddleWare for Exeption
          *[ ] Add AutoFact Scopes
          *[ ] Search InvalidModelStateResponseFactory
          *[ ] Delegate Function 
@@ -92,22 +83,24 @@ namespace VehicleBreakdownListRecord.API
             }
 
             app.UseRouting();
-            app.UseExceptionHandler(appError =>
-            {
-                appError.Run(async context =>
-                {
-                    var error = context.Features.Get<IExceptionHandlerFeature>();
-                    if (error!=null)
-                    {
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(
-                            new
-                            {
-                                ResponseMessage = env.IsDevelopment() ? error.ToString() : "Internal Server Error!"
-                            }));
-                    }
-                });
-                
-            });
+
+            app.UseCustomException();
+            //app.UseExceptionHandler(appError =>
+            //{
+            //    appError.Run(async context =>
+            //    {
+            //        var error = context.Features.Get<IExceptionHandlerFeature>();
+            //        if (error!=null)
+            //        {
+            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(
+            //                new
+            //                {
+            //                    ResponseMessage = env.IsDevelopment() ? error.ToString() : "Internal Server Error!"
+            //                }));
+            //        }
+            //    });
+
+            //});
             app.UseAuthorization();
             app.UseOpenApi();
             app.UseSwaggerUi3();

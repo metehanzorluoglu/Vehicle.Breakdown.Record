@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VehicleBreakdownRecor.Business.Interfaces;
@@ -90,12 +91,12 @@ namespace VehicleBreakdownListRecord.API.Controllers
         public IActionResult Patch(int id,  JsonPatchDocument<Vehicle> vehiclePatch)
         {
             var vehicleWithId=_vehicle.GetById(id);
-
+            vehicleWithId.UpdateDate = DateTime.Now;
             vehiclePatch.ApplyTo(vehicleWithId);
             var vehicleDto=_mapper.Map<VehicleDto>(vehicleWithId);
             _vehicle.Update(vehicleWithId);
 
-            return CreateActionResult(CustomResultDto<VehicleDto>.Success(vehicleDto, 204));
+            return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
 
         }
     }
