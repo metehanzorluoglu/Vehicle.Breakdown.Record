@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using System;
 using System.Collections.Generic;
+using VehicleBreakdownRecor.Business.Exceptions;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecord.DAL.Interfaces;
 using VehicleBreakdownRecord.Entity.DTOs;
@@ -29,7 +31,10 @@ namespace VehicleBreakdownRecor.Business.Concretes
 
         public void Delete(int id)
         {
-            _comment.Delete(id);
+            var hasComment = _comment.GetByID(id);
+            if (hasComment != null)
+                _comment.Delete(id);
+            throw new NotFoundException($"{typeof(VehicleComment).Name}({id}) is not found!");
         }
 
         public List<VehicleCommentDto> GetAll()
@@ -41,14 +46,24 @@ namespace VehicleBreakdownRecor.Business.Concretes
 
         public VehicleCommentDto GetById(int id)
         {
-            if (id > 0)
-            {
-                var comment = _comment.GetByID(id);
-                var commentId = _mapper.Map<VehicleCommentDto>(comment);
-                return commentId;
-            }
+            var hasComment = _comment.GetByID(id);
+            if (hasComment == null)
+                throw new NotFoundException($"{typeof(VehicleComment).Name}({id}) is not found!");
+            var commentId = _mapper.Map<VehicleCommentDto>(hasComment);
+            return commentId;
 
-            throw new Exception("Id can not be less then 1");
+        }
+
+        public VehicleCommentDto PatchUpdate(int id, JsonPatchDocument<VehicleComment> vehiclePatch)
+        {
+            var vehicleCommentWithId = _comment.GetByID(id);
+            if (vehicleCommentWithId != null)
+                throw new NotFoundException($"{typeof(VehicleComment).Name}({id}) is not found!");
+            vehicleCommentWithId.UpdateDate = DateTime.Now;
+            vehiclePatch.ApplyTo(vehicleCommentWithId);
+            var vehicleCommentDto = _mapper.Map<VehicleCommentDto>(vehicleCommentWithId);
+            _comment.Update(vehicleCommentWithId);
+            return vehicleCommentDto;
         }
 
         public VehicleCommentDto Update(VehicleCommentDto entity)
