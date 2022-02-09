@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VehicleBreakdownRecor.Business.Exceptions;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecord.DAL.Interfaces;
 using VehicleBreakdownRecord.Entity.DTOs;
@@ -30,7 +31,11 @@ namespace VehicleBreakdownRecor.Business.Concretes
 
         public void Delete(int id)
         {
-            _vehicle.Delete(id);
+            var hasVehicle = _vehicle.GetByID(id);
+            if (hasVehicle != null)
+                _vehicle.Delete(id);
+            throw new NotFoundException($"{typeof(Vehicle).Name} is not found!");
+            
         }
 
         public List<Vehicle> GetAll()
@@ -40,9 +45,11 @@ namespace VehicleBreakdownRecor.Business.Concretes
 
         public Vehicle GetById(int id)
         {
-            if (id>0)
-            return _vehicle.GetByID(id);
-            throw new Exception("Id can not be less then 1");
+
+            var hasVehicle= _vehicle.GetByID(id);
+            if (hasVehicle!=null)
+                return hasVehicle;
+            throw new NotFoundException($"{typeof(Vehicle).Name} is not found!");
         }
 
         public Vehicle Update(Vehicle entity)
