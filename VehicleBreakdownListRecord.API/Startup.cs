@@ -69,7 +69,11 @@ namespace VehicleBreakdownListRecord.API
             services.AddScoped<IBaseBusiness<VehicleCommentDto>, VehicleCommentBusiness>();
 
             services.AddScoped<IVehicleBusiness, VehicleBusiness>();
+            services.AddScoped<IVehicleCommentBusiness, VehicleCommentBusiness>();
+            services.AddScoped<IBreakdownListBusiness, BreakdownListBusiness>();
+
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+
             services.AddSwaggerDocument();
             services.AddAutoMapper(typeof(MapProfile));
         }
