@@ -90,11 +90,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpPatch("patch/{id}")]
         public IActionResult Patch(int id,  JsonPatchDocument<Vehicle> vehiclePatch)
         {
-            var vehicleWithId=_vehicle.GetById(id);
-            vehicleWithId.UpdateDate = DateTime.Now;
-            vehiclePatch.ApplyTo(vehicleWithId);
-            var vehicleDto=_mapper.Map<VehicleDto>(vehicleWithId);
-            _vehicle.Update(vehicleWithId);
+            var vehicleDto= _vehicle.PatchUpdate(id, vehiclePatch);
 
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
 

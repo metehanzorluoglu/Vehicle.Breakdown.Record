@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using VehicleBreakdownRecor.Business.Interfaces;
@@ -18,10 +19,10 @@ namespace VehicleBreakdownListRecord.API.Controllers
 
     public class BreakdownListController : CustomBaseController
     {
-        private IBaseBusiness<BreakdownListDto> _breakdownList;
+        private IBreakdownListBusiness _breakdownList;
         private IMapper _mapper;
 
-        public BreakdownListController(IBaseBusiness<BreakdownListDto> breakdownList, IMapper mapper)
+        public BreakdownListController(IBreakdownListBusiness breakdownList, IMapper mapper)
         {
             _breakdownList = breakdownList;
             _mapper = mapper;
@@ -56,6 +57,14 @@ namespace VehicleBreakdownListRecord.API.Controllers
         {
             _breakdownList.Update(_mapper.Map<BreakdownListDto>(breakdownListUpdateDto));
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
+        }
+        [HttpPatch("patch/{id}")]
+        public IActionResult Patch(int id, JsonPatchDocument<BreakdownList> vehiclePatch)
+        {
+            var vehicleDto = _breakdownList.PatchUpdate(id, vehiclePatch);
+
+            return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
+
         }
     }
 }
