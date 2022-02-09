@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using VehicleBreakdownRecord.Entity.DTOs;
@@ -9,6 +10,8 @@ namespace VehicleBreakdownRecor.Business.Interfaces
     public interface IVehicleBusiness:IBaseBusiness<Vehicle>
     {
         List<VehicleWithBreakdownAndCommentDto> VehicleWithBreakdownListAndComment();
+
+        VehicleDto PatchUpdate(int id, JsonPatchDocument<Vehicle> vehiclePatch);
         //List<VehicleWithCommentDto> VehicleWithComment();
     }
 }
