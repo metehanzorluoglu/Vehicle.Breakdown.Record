@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
 using VehicleBreakdownListRecord.API.Filters;
 using VehicleBreakdownListRecord.API.Middlewares;
 using VehicleBreakdownRecor.Business.Concretes;
@@ -14,6 +15,7 @@ using VehicleBreakdownRecor.Business.TokenConfiguration;
 using VehicleBreakdownRecor.Business.Validation;
 using VehicleBreakdownRecord.DAL.Concretes;
 using VehicleBreakdownRecord.DAL.Interfaces;
+using VehicleBreakdownRecord.Entity.Configurations;
 using VehicleBreakdownRecord.Entity.DTOs;
 using VehicleBreakdownRecord.Entity.Entities;
 
@@ -44,6 +46,7 @@ namespace VehicleBreakdownListRecord.API
         {
             //Options Pattern
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
+            services.Configure<List<Client>>(Configuration.GetSection("Clients"));
 
             services.AddControllers(option =>
             {
