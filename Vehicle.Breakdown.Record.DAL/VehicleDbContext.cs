@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -7,8 +9,17 @@ using VehicleBreakdownRecord.Entity.Entities;
 
 namespace VehicleBreakdownRecord.DAL
 {
-    public class VehicleDbContext: DbContext
+    public class VehicleDbContext: IdentityDbContext<UserApp,IdentityRole,string>
     {
+        public VehicleDbContext(DbContextOptions<VehicleDbContext> options):base(options)
+        {
+
+        }
+
+        public VehicleDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-7HRD6FM;Initial Catalog=VehicleRecorDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
@@ -24,6 +35,8 @@ namespace VehicleBreakdownRecord.DAL
         public DbSet<BreakdownList> BreakdownLists { get; set; }
         public DbSet<VehicleComment> VehicleComments { get; set; }
         public DbSet<VehicleBreakdownList> VehicleBreakdownLists { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
+
 
     }
 

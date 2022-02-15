@@ -29,6 +29,7 @@ namespace VehicleBreakdownListRecord.API
          *[ ] Search InvalidModelStateResponseFactory
          *[ ] Delegate Function 
          *[x] json Patch 
+         *[ ] Web Soccet
          */
         public Startup(IConfiguration configuration)
         {
