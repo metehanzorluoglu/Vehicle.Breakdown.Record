@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +12,19 @@ using VehicleBreakdownListRecord.API.Middlewares;
 using VehicleBreakdownRecor.Business.Concretes;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecor.Business.Mapping;
+using VehicleBreakdownRecor.Business.Services;
 using VehicleBreakdownRecor.Business.TokenConfiguration;
 using VehicleBreakdownRecor.Business.Validation;
+using VehicleBreakdownRecord.DAL;
 using VehicleBreakdownRecord.DAL.Concretes;
 using VehicleBreakdownRecord.DAL.Interfaces;
+using VehicleBreakdownRecord.DAL.Repositories;
 using VehicleBreakdownRecord.Entity.Configurations;
 using VehicleBreakdownRecord.Entity.DTOs;
 using VehicleBreakdownRecord.Entity.Entities;
+using VehicleBreakdownRecord.Entity.Interfaces;
+using VehicleBreakdownRecord.Entity.Services;
+using VehicleBreakdownRecord.Entity.UnitOfWork;
 
 namespace VehicleBreakdownListRecord.API
 {
@@ -67,6 +74,14 @@ namespace VehicleBreakdownListRecord.API
                 conf.ImplicitlyValidateChildProperties = true;
 
             });
+
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
             services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
             services.AddScoped<IBaseInterface<VehicleComment>, VehicleCommentRepository>();
@@ -83,6 +98,13 @@ namespace VehicleBreakdownListRecord.API
 
             services.AddSwaggerDocument();
             services.AddAutoMapper(typeof(MapProfile));
+
+            services.AddIdentity<UserApp, IdentityRole>(opt =>
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<VehicleDbContext>().AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

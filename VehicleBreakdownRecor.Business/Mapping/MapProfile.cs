@@ -17,6 +17,7 @@ namespace VehicleBreakdownRecor.Business.Mapping
             CreateMap<VehicleComment,VehicleCommentDto>().ReverseMap();
             CreateMap<BreakdownListDto,BreakdownListUpdateDto>().ReverseMap();
 
+            CreateMap<UserAppDto,UserApp>().ReverseMap();
 
             CreateMap<Vehicle,BreakdownListDto>().ReverseMap();
             CreateMap<VehicleBreakdownList, BreakdownList>().ReverseMap();
