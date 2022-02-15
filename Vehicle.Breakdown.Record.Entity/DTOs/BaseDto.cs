@@ -7,7 +7,7 @@ namespace VehicleBreakdownRecord.Entity.DTOs
 {
     public abstract class BaseDto
     {
-        [JsonIgnore]
+        //[JsonIgnore]
         public int Id { get; set; }
         //public int Id { get; set; }
         [JsonIgnore]
