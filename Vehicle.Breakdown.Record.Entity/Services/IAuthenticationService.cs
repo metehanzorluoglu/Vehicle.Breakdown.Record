@@ -11,6 +11,6 @@ namespace VehicleBreakdownRecord.Entity.Services
         Task<CustomResultDto<TokenDto>> CreateTokenAsync(LoginDto loginDto);
         Task<CustomResultDto<TokenDto>> CreateTokenByRefreshAsync(string refreshToken);
         Task<CustomResultDto<NoContentDto>> RevokeRefreshTokenAsync(string refreshToken);
-        Task<CustomResultDto<ClientLoginDto>> CreateClientTokenAsync(ClientLoginDto clientLoginDto);
+        CustomResultDto<ClientTokenDto> CreateTokenByClient(ClientLoginDto clientLoginDto);
     }
 }
