@@ -10,6 +10,7 @@ using VehicleBreakdownListRecord.API.Middlewares;
 using VehicleBreakdownRecor.Business.Concretes;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecor.Business.Mapping;
+using VehicleBreakdownRecor.Business.TokenConfiguration;
 using VehicleBreakdownRecor.Business.Validation;
 using VehicleBreakdownRecord.DAL.Concretes;
 using VehicleBreakdownRecord.DAL.Interfaces;
@@ -26,7 +27,6 @@ namespace VehicleBreakdownListRecord.API
          *[x] Add Filter Attribute for Validation
          *[x] Add MiddleWare for Exeption
          *[ ] Add AutoFact Scopes
-         *[ ] Search InvalidModelStateResponseFactory
          *[ ] Delegate Function 
          *[x] json Patch 
          *[ ] Web Soccet
@@ -42,6 +42,9 @@ namespace VehicleBreakdownListRecord.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Options Pattern
+            services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
+
             services.AddControllers(option =>
             {
                 option.Filters.Add(new ValidateFilterAttribute());
