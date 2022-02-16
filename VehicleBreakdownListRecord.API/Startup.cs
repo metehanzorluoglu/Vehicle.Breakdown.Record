@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -76,6 +77,13 @@ namespace VehicleBreakdownListRecord.API
                 conf.ImplicitlyValidateChildProperties = true;
 
             });
+            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer"), sqlOptions =>
+                {
+                    sqlOptions.MigrationsAssembly("VehicleBreakdownRecord.DAL");
+                });
+            });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
@@ -142,24 +150,13 @@ namespace VehicleBreakdownListRecord.API
             app.UseRouting();
 
             app.UseCustomException();
-            //app.UseExceptionHandler(appError =>
-            //{
-            //    appError.Run(async context =>
-            //    {
-            //        var error = context.Features.Get<IExceptionHandlerFeature>();
-            //        if (error!=null)
-            //        {
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(
-            //                new
-            //                {
-            //                    ResponseMessage = env.IsDevelopment() ? error.ToString() : "Internal Server Error!"
-            //                }));
-            //        }
-            //    });
+            
+            app.UseAuthentication();
 
-            //});
             app.UseAuthorization();
+            
             app.UseOpenApi();
+
             app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
