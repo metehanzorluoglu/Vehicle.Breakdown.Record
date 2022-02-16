@@ -9,14 +9,14 @@ using VehicleBreakdownRecord.Entity.Entities;
 
 namespace VehicleBreakdownRecord.DAL
 {
-    public class VehicleDbContext: IdentityDbContext<UserApp,IdentityRole,string>
+    public class AppDbContext: IdentityDbContext<UserApp,IdentityRole,string>
     {
-        public VehicleDbContext(DbContextOptions<VehicleDbContext> options):base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
 
         }
 
-        public VehicleDbContext()
+        public AppDbContext()
         {
         }
 
