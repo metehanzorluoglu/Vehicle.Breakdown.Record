@@ -9,7 +9,7 @@ using VehicleBreakdownRecord.DAL;
 
 namespace VehicleBreakdownRecord.DAL.Migrations
 {
-    [DbContext(typeof(VehicleDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20220216090140_AddLoginTables")]
     partial class AddLoginTables
     {

@@ -11,7 +11,7 @@ namespace VehicleBreakdownRecord.DAL
     {
         private readonly DbContext _context;
 
-        public UnitOfWork(VehicleDbContext context)
+        public UnitOfWork(AppDbContext context)
         {
             _context = context;
         }

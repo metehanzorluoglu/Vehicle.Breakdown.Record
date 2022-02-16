@@ -11,7 +11,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
     {
         public BreakdownList Add(BreakdownList entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.Add(entity);
                 context.SaveChanges();
@@ -21,7 +21,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public void Delete(int id)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.BreakdownLists.Remove(GetByID(id));
                 context.SaveChanges();
@@ -30,7 +30,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public List<BreakdownList> GetAll()
         {
-            using(var context= new VehicleDbContext())
+            using(var context= new AppDbContext())
             {
                 return context.BreakdownLists.ToList();
             }
@@ -38,7 +38,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public BreakdownList GetByID(int id)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 return context.BreakdownLists.Find(id);
             }
@@ -46,7 +46,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public BreakdownList Update(BreakdownList entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.BreakdownLists.Update(entity);
                 context.SaveChanges();

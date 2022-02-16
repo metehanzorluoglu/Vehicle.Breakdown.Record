@@ -13,7 +13,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
     {
         public Vehicle Add(Vehicle entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.Vehicles.Add(entity);
                 context.SaveChanges();
@@ -23,7 +23,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public void Delete(int id)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.Vehicles.Remove(GetByID(id));
                 context.SaveChanges();
@@ -32,7 +32,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public List<Vehicle> GetAll()
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 return context.Vehicles.ToList();
             }
@@ -40,7 +40,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public Vehicle GetByID(int id)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 return context.Vehicles.Find(id);
             }
@@ -48,7 +48,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public Vehicle Update(Vehicle entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.Vehicles.Update(entity);
                 context.SaveChanges();
@@ -58,7 +58,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public List<Vehicle> VehicleWithBreakdownListAndComment()
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 //return context.Vehicles.Include("BreakdownLists").Include("VehicleComments").ToList();
                 return context.Vehicles.Include(y => y.VehicleComments).Include(x => x.VehicleBreakdownLists).ThenInclude(x=>x.BreakdownList).ToList();

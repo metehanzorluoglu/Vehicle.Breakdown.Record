@@ -9,7 +9,7 @@ using VehicleBreakdownRecord.DAL;
 
 namespace VehicleBreakdownRecord.DAL.Migrations
 {
-    [DbContext(typeof(VehicleDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20220201162337_initial")]
     partial class initial
     {

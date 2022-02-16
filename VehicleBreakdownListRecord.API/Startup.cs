@@ -105,7 +105,7 @@ namespace VehicleBreakdownListRecord.API
             {
                 opt.User.RequireUniqueEmail = true;
                 opt.Password.RequireNonAlphanumeric = false;
-            }).AddEntityFrameworkStores<VehicleDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
             services.AddAuthentication(opt =>
             {

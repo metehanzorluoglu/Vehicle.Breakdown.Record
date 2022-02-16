@@ -14,7 +14,7 @@ namespace VehicleBreakdownRecord.DAL.Repositories
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        public GenericRepository(DbSet<TEntity> dbSet, VehicleDbContext context)
+        public GenericRepository(DbSet<TEntity> dbSet, AppDbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

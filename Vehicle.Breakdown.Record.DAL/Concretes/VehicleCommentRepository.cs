@@ -11,7 +11,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
     {
         public VehicleComment Add(VehicleComment entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.Add(entity);
                 context.SaveChanges();
@@ -21,7 +21,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public void Delete(int id)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.VehicleComments.Remove(GetByID(id));
                 context.SaveChanges();
@@ -30,7 +30,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public List<VehicleComment> GetAll()
         {
-            using (var context =new VehicleDbContext())
+            using (var context =new AppDbContext())
             {
                 return context.VehicleComments.ToList();
             }
@@ -38,7 +38,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public VehicleComment GetByID(int id)
         {
-            using (var context= new VehicleDbContext())
+            using (var context= new AppDbContext())
             {
                 return context.VehicleComments.Find(id);
             }
@@ -46,7 +46,7 @@ namespace VehicleBreakdownRecord.DAL.Concretes
 
         public VehicleComment Update(VehicleComment entity)
         {
-            using (var context = new VehicleDbContext())
+            using (var context = new AppDbContext())
             {
                 context.VehicleComments.Update(entity);
                 context.SaveChanges();
