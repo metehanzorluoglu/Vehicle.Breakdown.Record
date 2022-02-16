@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VehicleBreakdownRecor.Business.Services
 {
-    internal static class SignService
+    public static class SignService
     {
         public static SecurityKey GetSymmetricSecurityKey(string securityKey)
         {
