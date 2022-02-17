@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VehicleBreakdownRecor.Business.Interfaces;
 using VehicleBreakdownRecord.Entity.DTOs;
 using VehicleBreakdownRecord.Entity.Entities;
+using VehicleBreakdownRecord.Entity.Services;
 
 namespace VehicleBreakdownListRecord.API.Controllers
 {
@@ -16,55 +19,53 @@ namespace VehicleBreakdownListRecord.API.Controllers
      * [x] Update (VehicleComment)
      * [x] Delete (VehicleComment)
      */
-
+    [Authorize]
     public class VehicleCommentController : CustomBaseController
     {
-        private readonly IVehicleCommentBusiness _comment;
-        private IMapper _mapper;
+        private readonly IGenericService<VehicleComment, VehicleCommentDto> _comment;
 
-        public VehicleCommentController(IVehicleCommentBusiness comment, IMapper mapper)
+        public VehicleCommentController(IGenericService<VehicleComment, VehicleCommentDto> comment)
         {
             _comment = comment;
-            _mapper = mapper;
         }
-        
+
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return CreateActionResult(CustomResultDto<List<VehicleCommentDto>>.Success(_comment.GetAll(), 200));
+            return CreateActionResult(await _comment.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return CreateActionResult(CustomResultDto<VehicleCommentDto>.Success(_comment.GetById(id), 200));
+            return CreateActionResult(await _comment.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public IActionResult Add(VehicleCommentDto breakdownListDto)
+        public async Task<IActionResult> Add(VehicleCommentDto breakdownListDto)
         {
-            _comment.Add(breakdownListDto);
+            await _comment.AddAsync(breakdownListDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(201));
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _comment.Delete(id);
+            await _comment.Remove(id);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }
-        [HttpPut]
-        public IActionResult Update(VehicleCommentDto vehicleCommentDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, VehicleCommentDto vehicleCommentDto)
         {
-            _comment.Update(_mapper.Map<VehicleCommentDto>(vehicleCommentDto));
+            await _comment.Update(id, vehicleCommentDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }
-        [HttpPatch("patch/{id}")]
-        public IActionResult Patch(int id, JsonPatchDocument<VehicleComment> vehiclePatch)
-        {
-            var vehicleDto = _comment.PatchUpdate(id, vehiclePatch);
+        //[HttpPatch("patch/{id}")]
+        //public IActionResult Patch(int id, JsonPatchDocument<VehicleComment> vehiclePatch)
+        //{
+        //    var vehicleDto = _comment.PatchUpdate(id, vehiclePatch);
 
-            return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
+        //    return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
 
-        }
+        //}
     }
 }

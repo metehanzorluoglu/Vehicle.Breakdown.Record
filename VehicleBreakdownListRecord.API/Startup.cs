@@ -58,6 +58,16 @@ namespace VehicleBreakdownListRecord.API
             services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
             services.Configure<List<Client>>(Configuration.GetSection("Clients"));
 
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+
             services.AddControllers(option =>
             {
                 option.Filters.Add(new ValidateFilterAttribute());
@@ -77,7 +87,7 @@ namespace VehicleBreakdownListRecord.API
                 conf.ImplicitlyValidateChildProperties = true;
 
             });
-            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer"), sqlOptions =>
                 {
@@ -85,26 +95,21 @@ namespace VehicleBreakdownListRecord.API
                 });
             });
 
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
-            services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
-            services.AddScoped<IBaseInterface<VehicleComment>, VehicleCommentRepository>();
+            //services.AddScoped<IBaseInterface<Vehicle>, VehicleRepository>();
+            //services.AddScoped<IBaseInterface<BreakdownList>, BreakdownListRepository>();
+            //services.AddScoped<IBaseInterface<VehicleComment>, VehicleCommentRepository>();
 
-            services.AddScoped<IBaseBusiness<Vehicle>, VehicleBusiness>();
-            services.AddScoped<IBaseBusiness<BreakdownListDto>, BreakdownListBusiness>();
-            services.AddScoped<IBaseBusiness<VehicleCommentDto>, VehicleCommentBusiness>();
+            //services.AddScoped<IBaseBusiness<Vehicle>, VehicleBusiness>();
+            //services.AddScoped<IBaseBusiness<BreakdownListDto>, BreakdownListBusiness>();
+            //services.AddScoped<IBaseBusiness<VehicleCommentDto>, VehicleCommentBusiness>();
 
-            services.AddScoped<IVehicleBusiness, VehicleBusiness>();
-            services.AddScoped<IVehicleCommentBusiness, VehicleCommentBusiness>();
-            services.AddScoped<IBreakdownListBusiness, BreakdownListBusiness>();
+            //services.AddScoped<IVehicleBusiness, VehicleBusiness>();
+            //services.AddScoped<IVehicleCommentBusiness, VehicleCommentBusiness>();
+            //services.AddScoped<IBreakdownListBusiness, BreakdownListBusiness>();
 
-            services.AddScoped<IVehicleRepository, VehicleRepository>();
+            //services.AddScoped<IVehicleRepository, VehicleRepository>();
 
             services.AddSwaggerDocument();
             services.AddAutoMapper(typeof(MapProfile));
