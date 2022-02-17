@@ -26,11 +26,13 @@ namespace VehicleBreakdownRecor.Business.Services
         private readonly IUnitOfWork _unitOfWork;
         public AuthenticationService(ITokenService tokenService, IOptions<List<Client>> optionsClient, UserManager<UserApp> userManager, IGenericRepository<UserRefreshToken> userRefreshTokenService, IUnitOfWork unitOfWork)
         {
+            _clients = optionsClient.Value;
+
             _tokenService = tokenService;
             _userManager = userManager;
-            _clients = optionsClient.Value;
-            _userRefreshTokenService = userRefreshTokenService;
             _unitOfWork = unitOfWork;
+            _userRefreshTokenService = userRefreshTokenService;
+            
         }
 
 
@@ -52,12 +54,14 @@ namespace VehicleBreakdownRecor.Business.Services
 
             if (user == null)
                 return CustomResultDto<TokenDto>.Fail(400, "Email or Password is wrong!");
+            
             if(!await _userManager.CheckPasswordAsync(user, loginDto.Password))
                 return CustomResultDto<TokenDto>.Fail(400, "Email or Password is wrong!");
 
             var token= _tokenService.CreateToken(user);
 
             var userRefreshToken = await _userRefreshTokenService.Where(x => x.UserId == user.Id).SingleOrDefaultAsync();
+            
             if (userRefreshToken == null)
             {
                 await _userRefreshTokenService.AddAsync(new UserRefreshToken
