@@ -9,7 +9,7 @@ using VehicleBreakdownRecord.DAL;
 namespace VehicleBreakdownRecord.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class VehicleDbContextModelSnapshot : ModelSnapshot
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
