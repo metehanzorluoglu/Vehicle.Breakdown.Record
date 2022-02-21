@@ -87,13 +87,21 @@ namespace VehicleBreakdownListRecord.API
                 conf.ImplicitlyValidateChildProperties = true;
 
             });
+            //services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("SqlServer"), sqlOptions =>
+            //    {
+            //        sqlOptions.MigrationsAssembly("VehicleBreakdownRecord.DAL");
+            //    });
+            //});
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("SqlServer"), sqlOptions =>
+                options.UseNpgsql(Configuration.GetConnectionString("SqlServer"), sqlOptions =>
                 {
                     sqlOptions.MigrationsAssembly("VehicleBreakdownRecord.DAL");
                 });
             });
+            services.AddScoped<DbContext>(provider => provider.GetService<AppDbContext>());
 
 
 

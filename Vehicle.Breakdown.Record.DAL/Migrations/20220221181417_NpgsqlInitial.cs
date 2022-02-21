@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace VehicleBreakdownRecord.DAL.Migrations
 {
-    public partial class AddLoginTables : Migration
+    public partial class NpgsqlInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +49,23 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BreakdownLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    DeleteDate = table.Column<DateTime>(nullable: true),
+                    BreakdownName = table.Column<string>(maxLength: 50, nullable: false),
+                    IsValid = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BreakdownLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRefreshTokens",
                 columns: table => new
                 {
@@ -61,11 +79,31 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vehicles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    DeleteDate = table.Column<DateTime>(nullable: true),
+                    VehicleName = table.Column<string>(maxLength: 50, nullable: false),
+                    VehicleOwnerName = table.Column<string>(maxLength: 50, nullable: false),
+                    VehicleOwnerLastname = table.Column<string>(maxLength: 50, nullable: false),
+                    VehicleOwnerPhone = table.Column<string>(maxLength: 15, nullable: false),
+                    VehicleChassisNumber = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -86,7 +124,7 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -166,6 +204,53 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VehicleBreakdownLists",
+                columns: table => new
+                {
+                    VehicleId = table.Column<int>(nullable: false),
+                    BreakdowListId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleBreakdownLists", x => new { x.VehicleId, x.BreakdowListId });
+                    table.ForeignKey(
+                        name: "FK_VehicleBreakdownLists_BreakdownLists_BreakdowListId",
+                        column: x => x.BreakdowListId,
+                        principalTable: "BreakdownLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehicleBreakdownLists_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VehicleComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    DeleteDate = table.Column<DateTime>(nullable: true),
+                    Comment = table.Column<string>(maxLength: 250, nullable: false),
+                    VehicleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VehicleComments_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -175,8 +260,7 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -202,8 +286,17 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleBreakdownLists_BreakdowListId",
+                table: "VehicleBreakdownLists",
+                column: "BreakdowListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleComments_VehicleId",
+                table: "VehicleComments",
+                column: "VehicleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -227,10 +320,22 @@ namespace VehicleBreakdownRecord.DAL.Migrations
                 name: "UserRefreshTokens");
 
             migrationBuilder.DropTable(
+                name: "VehicleBreakdownLists");
+
+            migrationBuilder.DropTable(
+                name: "VehicleComments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "BreakdownLists");
+
+            migrationBuilder.DropTable(
+                name: "Vehicles");
         }
     }
 }

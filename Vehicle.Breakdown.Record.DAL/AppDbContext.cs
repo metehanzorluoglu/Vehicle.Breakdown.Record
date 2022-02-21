@@ -16,9 +16,6 @@ namespace VehicleBreakdownRecord.DAL
 
         }
 
-        public AppDbContext()
-        {
-        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
