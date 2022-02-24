@@ -75,12 +75,14 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(VehicleDto vehicleDto)
         {
+            vehicleDto.CreateDate = DateTime.Now;
             await _vehicle.AddAsync(vehicleDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(201));
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id,VehicleDto vehicleDto)
         {
+            vehicleDto.UpdateDate= DateTime.Now;
             await _vehicle.Update(id,vehicleDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }

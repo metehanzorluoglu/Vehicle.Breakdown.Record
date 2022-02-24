@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -44,6 +45,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(BreakdownListDto breakdownListDto)
         {
+            breakdownListDto.CreateDate= DateTime.Now;
            await _breakdownList.AddAsync(breakdownListDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(201));
         }
@@ -56,6 +58,7 @@ namespace VehicleBreakdownListRecord.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id,BreakdownListDto breakdownListUpdateDto)
         {
+            breakdownListUpdateDto.UpdateDate= DateTime.Now;
            await _breakdownList.Update(id,breakdownListUpdateDto);
             return CreateActionResult(CustomResultDto<NoContentDto>.Success(204));
         }
