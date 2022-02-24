@@ -176,6 +176,12 @@ namespace VehicleBreakdownListRecord.API
             {
                 endpoints.MapControllers();
             });
+
+            using (var scope= app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetService<AppDbContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }
