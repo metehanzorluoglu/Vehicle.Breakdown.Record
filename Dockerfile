@@ -12,5 +12,5 @@ RUN dotnet publish ./VehicleBreakdownListRecord.API/*.csproj -o /publish/
 FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine
 WORKDIR /app
 COPY --from=build /publish .
-ENV ASPNETCORE_URLS="http://*:5000"
+ENV ASPNETCORE_URLS="http://*:5001"
 ENTRYPOINT [ "dotnet","VehicleBreakdownListRecord.API.dll" ]
