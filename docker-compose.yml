@@ -1,0 +1,35 @@
+version: '3.4'
+networks:
+  dockerapi-dev:
+    driver: bridge
+services:
+  postgre_db:
+    container_name: data-compase-postgresql
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 2535*
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dockerapi-dev
+  vehicle_api:
+    container_name: container-compase-vehicleproject
+    image: metehanzorluoglu/vehicleproject:v1
+    depends_on:
+      - "postgre_db"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5000:5000
+    networks:
+    - dockerapi-dev
+volumes:
+  pgdata:
+    
+    
+

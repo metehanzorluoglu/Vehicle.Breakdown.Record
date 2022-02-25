@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine as build
-EXPOSE 5432
+#EXPOSE 80
 WORKDIR /app
 COPY ./Vehicle.Breakdown.Record.Entity/*.csproj ./Vehicle.Breakdown.Record.Entity/
 COPY ./Vehicle.Breakdown.Record.DAL/*.csproj ./Vehicle.Breakdown.Record.DAL/
