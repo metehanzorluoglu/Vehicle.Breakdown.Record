@@ -62,18 +62,3 @@
 
 ![Screen Shot 2022-03-02 at 22 35 41](https://user-images.githubusercontent.com/57620464/156446243-6b2e5764-d9d1-4ed2-bb72-aa7b63de985f.png)<br/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
