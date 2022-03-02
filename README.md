@@ -1,10 +1,10 @@
 # EClinicsHospitalService
 ## Creating .ssh Public Key
 
-### Creating .ssh file <br/>
+### Creating .ssh folder <br/>
 `mkdir ~/.ssh`<br/>
 `chmod 700 ~/.ssh`<br/>
-### Enter .ssh file <br/>
+### Enter .ssh folder <br/>
 `cd ~/.ssh`<br/>
 `ssh-keygen -t rsa`<br/><br/>
 `cat id_rsa.pub`<br/><br/>
