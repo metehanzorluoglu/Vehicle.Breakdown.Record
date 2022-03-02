@@ -24,10 +24,15 @@
 
 ## Clone and Backup <br/>
 `git clone ceibaeclinics@vs-ssh.visualstudio.com:v3/ceibaeclinics/EClinicsHospitalService/EClinicsHospitalService` for Clone<br/> 
-`rsync -azv ubuntu@db1.api.ceibateleicu.com:/home/ubuntu/<DateOfBackup>_backup.gz.`for Backup<br/>
-`gzip -d <DateOfBackup>_backup.gz`<br/>
+`cd ~/<your saving path>`<br/>
+`rsync -azv ubuntu@db1.api.ceibateleicu.com:/home/ubuntu/2021-09-26_backup.gz .`for Backup<br/>
+`gzip -d 2021-09-26_backup.gz`<br/>
 
 ## Creating Database <br/>
+### Requirements <br/>
+* PostgreSql Database 
+* psql Cli <br/>
+
 ### Enter Database <br/>
 `psql -U postgres`<br/>
 `create user "CeibaSa" with password 'Ceiba@Tele.123';`<br/>
@@ -38,5 +43,27 @@
 `exit`<br/>
 
 ### Loading Backup into Database <br/>
-`psql -U "CeibaSa" -d "CeibaHospitalDB" < <DateOfBackup>_backup`<br/>
-#### Password =Ceiba@Tele.123<br/>
+`psql -U "CeibaSa" -d "CeibaHospitalDB" < 2021-09-26_backup.gz`<br/>
+- Password = Ceiba@Tele.123<br/>
+
+## Changing The Code for Database Connection <br/>
+
+* Enter /.../.../.../EClinicsHospitalService/src/HospitalService.API/Properties/launchSettings.json
+
+![Screen Shot 2022-03-02 at 22 35 41](https://user-images.githubusercontent.com/57620464/156446243-6b2e5764-d9d1-4ed2-bb72-aa7b63de985f.png)<br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
