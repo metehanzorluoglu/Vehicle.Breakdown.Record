@@ -31,4 +31,4 @@
 `exit`<br/>
 ### Loading Backup into Database <br/>
 `psql -U "CeibaSa" -d "CeibaHospitalDB" < <DateOfBackup>_backup`<br/>
-#### Password Ceiba@Tele.123<br/>
+#### Password =Ceiba@Tele.123<br/>
