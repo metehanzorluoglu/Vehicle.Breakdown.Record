@@ -2,10 +2,10 @@
 ## Creating .ssh Public Key
 
 ### Creating .ssh file <br/>
-`mkdir .ssh`<br/>
-`chmod 700 /.ssh`<br/>
+`mkdir ~/.ssh`<br/>
+`chmod 700 ~/.ssh`<br/>
 ### Enter .ssh file <br/>
-`cd .ssh`<br/>
+`cd ~/.ssh`<br/>
 `ssh-keygen -t rsa`<br/><br/>
 `cat id_rsa.pub`<br/><br/>
 <img width="488" alt="Screen Shot 2022-03-02 at 15 17 03" src="https://user-images.githubusercontent.com/57620464/156360290-b92deb00-f899-4e1b-8535-f70c9846bbbc.png">
