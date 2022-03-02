@@ -18,7 +18,7 @@
 `ssh -L 6005:localhost:5432 ubuntu@db1.api.ceibateleicu.com`
 ## Clone and Backup <br/>
 `git clone ceibaeclinics@vs-ssh.visualstudio.com:v3/ceibaeclinics/EClinicsHospitalService/EClinicsHospitalService` for Clone<br/> 
-`rsync -azv ubuntu@db1.api.ceibateleicu.com:/home/ubuntu/2021-09-26_backup.gz .`for Backup<br/>
+`rsync -azv ubuntu@db1.api.ceibateleicu.com:/home/ubuntu/<DateOfBackup>_backup.gz.`for Backup<br/>
 `gzip -d <DateOfBackup>_backup.gz`<br/>
 ## Creating Database <br/>
 ### Enter Database <br/>
