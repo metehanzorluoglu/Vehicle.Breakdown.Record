@@ -31,7 +31,8 @@
 ## Creating Database <br/>
 ### Requirements <br/>
 * PostgreSql Database 
-* psql Cli <br/>
+* psql Cli 
+* pgAdmin 4 <br/>
 
 ### Enter Database <br/>
 `psql -U postgres`<br/>
@@ -45,6 +46,15 @@
 ### Loading Backup into Database <br/>
 `psql -U "CeibaSa" -d "CeibaHospitalDB" < 2021-09-26_backup.gz`<br/>
 - Password = Ceiba@Tele.123<br/>
+
+### Adding New Query on Database <br/>
+
+- Copy The Query
+- Execute The Query<br/>
+
+`INSERT INTO "Shared"."Users" ("Id", "RoleId", "UserName", "Password", "FirstName", "LastName", "Email", "ContactNo", "PersonnalId", "DateOfBirth", "CreatedDate", "ModifiedDate", "LastLoginAttempt", "CreatedById", "ModifiedById", "TitleId", "SpecialityId", "IsActive", "IsFirstLogin","IsPasswordReset", "TotpSecretKey") VALUES (1, 1, 'string12', '$2a$11$2xI4kDIRd5pjRFKMghHgw.kpG2nbbVru4VjT2515fKd0jj/6AtC3W', 'string', 'string', 'allen@gmail.com', 'string', 'string', '2019-10-10 13:35:19.657000 +00:00', '2019-10-10 13:37:41.443561 +00:00', null, null, null, null, 1, 1, true, false, false, null);` <br/>
+
+![Screen Shot 2022-03-02 at 23 55 16](https://user-images.githubusercontent.com/57620464/156449077-af5687c5-e249-4589-95c9-9dd59c06b07d.png) <br/>
 
 ## Changing The Code for Database Connection <br/>
 
