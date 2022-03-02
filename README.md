@@ -8,13 +8,15 @@
 `cd ~/.ssh`<br/>
 `ssh-keygen -t rsa`<br/><br/>
 `cat id_rsa.pub`<br/><br/>
-<img width="488" alt="Screen Shot 2022-03-02 at 15 17 03" src="https://user-images.githubusercontent.com/57620464/156360290-b92deb00-f899-4e1b-8535-f70c9846bbbc.png">
+<img width="488" alt="Screen Shot 2022-03-02 at 15 17 03" src="https://user-images.githubusercontent.com/57620464/156432464-f7e32d83-7679-458f-9a4e-75fb428bc031.png">
+
 <br/>
 ## Entiring your public key on Ceiba Connection<br/>
-![Screen Shot 2022-03-02 at 22 04 08](https://user-images.githubusercontent.com/57620464/156430894-b969a298-3f88-49be-8bc4-5b35fd3c2aa5.png)<br/>
-![Screen Shot 2022-03-02 at 22 07 20](https://user-images.githubusercontent.com/57620464/156431865-881cbfee-0e91-4b6b-8427-9c3444e8d196.png)<br/>
-![Screen Shot 2022-03-02 at 22 08 27](https://user-images.githubusercontent.com/57620464/156431884-91b4bf35-1075-41d6-8e8c-34beb8e83a34.png)<br/>
-![Screen Shot 2022-03-02 at 22 10 08](https://user-images.githubusercontent.com/57620464/156431903-7acbd0c1-58ae-4325-bead-e824204b41fb.png)<br/>
+![Screen Shot 2022-03-02 at 22 04 08](https://user-images.githubusercontent.com/57620464/156432739-9645882b-aa3a-4cc7-809f-09aac63040be.png)<br/>
+![Screen Shot 2022-03-02 at 22 07 20](https://user-images.githubusercontent.com/57620464/156432764-46a1eaa1-b45f-4e5a-811f-a43c8cf4b7ea.png)<br/>
+![Screen Shot 2022-03-02 at 22 08 27](https://user-images.githubusercontent.com/57620464/156432787-72ea8aa0-57e4-46b4-8a48-825774fc3a57.png)<br/>
+![Screen Shot 2022-03-02 at 22 10 08](https://user-images.githubusercontent.com/57620464/156432795-7cf3606b-de8b-42b6-9905-52e2c8eede81.png)<br/>
+
 
 
 
