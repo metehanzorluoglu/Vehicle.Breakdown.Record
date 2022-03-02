@@ -12,7 +12,7 @@
 <img width="488" alt="Screen Shot 2022-03-02 at 15 17 03" src="https://user-images.githubusercontent.com/57620464/156432464-f7e32d83-7679-458f-9a4e-75fb428bc031.png">
 <br/>
 
-## Entiring your public key on Ceiba Azure DevOps<br/>
+## Entiring your public key on your Ceiba Azure DevOps account<br/>
 <br/>
 
 ![Screen Shot 2022-03-02 at 22 04 08](https://user-images.githubusercontent.com/57620464/156432739-9645882b-aa3a-4cc7-809f-09aac63040be.png)<br/>
