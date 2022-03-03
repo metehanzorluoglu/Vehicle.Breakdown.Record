@@ -9,17 +9,18 @@
 `cd ~/.ssh`<br/>
 `ssh-keygen -t rsa`<br/><br/>
 `cat id_rsa.pub`<br/><br/>
-<img width="488" alt="Screen Shot 2022-03-02 at 15 17 03" src="https://user-images.githubusercontent.com/57620464/156432464-f7e32d83-7679-458f-9a4e-75fb428bc031.png">
+<img width="488" alt="1" src="https://user-images.githubusercontent.com/57620464/156518942-d4ffb05f-1379-485a-bfb5-90732a1f8b7c.png">
+
 <br/>
 
 ## Entiring your public key on your Ceiba Azure DevOps account<br/>
 <br/>
 
-![Screen Shot 2022-03-02 at 22 04 08](https://user-images.githubusercontent.com/57620464/156432739-9645882b-aa3a-4cc7-809f-09aac63040be.png)<br/>
-![Screen Shot 2022-03-02 at 22 07 20](https://user-images.githubusercontent.com/57620464/156432764-46a1eaa1-b45f-4e5a-811f-a43c8cf4b7ea.png)<br/>
-![Screen Shot 2022-03-02 at 22 08 27](https://user-images.githubusercontent.com/57620464/156432787-72ea8aa0-57e4-46b4-8a48-825774fc3a57.png)<br/>
-![Screen Shot 2022-03-02 at 22 10 08](https://user-images.githubusercontent.com/57620464/156432795-7cf3606b-de8b-42b6-9905-52e2c8eede81.png)<br/>
-![Screen Shot 2022-03-02 at 22 26 13](https://user-images.githubusercontent.com/57620464/156434562-147fc6bb-8e55-45fd-918d-f8944ac0e0cb.png)<br/>
+![2](https://user-images.githubusercontent.com/57620464/156518986-4faf5497-30ad-4fcf-baab-5f7333f01c6f.png)<br/>
+![3](https://user-images.githubusercontent.com/57620464/156519062-b4acbca2-27be-4106-af33-7b356d024451.png)<br/>
+![4](https://user-images.githubusercontent.com/57620464/156519103-0b12a25f-8097-4b4c-a8a6-2069c0c5c4c6.png)<br/>
+![5](https://user-images.githubusercontent.com/57620464/156519136-cd9a13f5-2c72-4e10-b647-18c28db26804.png)<br/>
+![6](https://user-images.githubusercontent.com/57620464/156519166-6e7b6856-73b1-470b-9e62-f1e30bf5d66e.png)<br/>
 
 
 ## Clone and Backup <br/>
@@ -38,8 +39,7 @@
 `create user "CeibaSa" with password 'Ceiba@Tele.123';`<br/>
 `create database "CeibaHospitalDB" with owner "CeibaSa";`<br/>
 `\l`<br/>
-![Screen Shot 2022-03-02 at 16 06 39](https://user-images.githubusercontent.com/57620464/156367567-7f5a1778-a6b1-43c4-86aa-a8ad77c74ff8.png)
-<br/>
+![7](https://user-images.githubusercontent.com/57620464/156519216-a52295c8-d4ed-4e3e-98aa-6636092317ab.png)<br/>
 `exit`<br/>
 
 ### Loading Backup into Database <br/>
@@ -50,7 +50,8 @@
 
 * Enter /.../.../.../EClinicsHospitalService/src/HospitalService.API/Properties/launchSettings.json
 
-![Screen Shot 2022-03-02 at 22 35 41](https://user-images.githubusercontent.com/57620464/156446243-6b2e5764-d9d1-4ed2-bb72-aa7b63de985f.png)<br/>
+![8](https://user-images.githubusercontent.com/57620464/156519285-296017dd-4ac9-478e-85b9-252af3350aa6.png)<br/>
+
 
 ### Adding New Query on Database <br/>
 If you are getting FK_Acceptances_User error, you can follow the steps below.
@@ -59,7 +60,7 @@ If you are getting FK_Acceptances_User error, you can follow the steps below.
 
 `INSERT INTO "Shared"."Users" ("Id", "RoleId", "UserName", "Password", "FirstName", "LastName", "Email", "ContactNo", "PersonnalId", "DateOfBirth", "CreatedDate", "ModifiedDate", "LastLoginAttempt", "CreatedById", "ModifiedById", "TitleId", "SpecialityId", "IsActive", "IsFirstLogin","IsPasswordReset", "TotpSecretKey") VALUES (1, 1, 'string12', '$2a$11$2xI4kDIRd5pjRFKMghHgw.kpG2nbbVru4VjT2515fKd0jj/6AtC3W', 'string', 'string', 'allen@gmail.com', 'string', 'string', '2019-10-10 13:35:19.657000 +00:00', '2019-10-10 13:37:41.443561 +00:00', null, null, null, null, 1, 1, true, false, false, null);` <br/>
 
-![Screen Shot 2022-03-02 at 23 55 16](https://user-images.githubusercontent.com/57620464/156449077-af5687c5-e249-4589-95c9-9dd59c06b07d.png) <br/>
+![9](https://user-images.githubusercontent.com/57620464/156519382-631cc620-c661-4dd0-bc34-535c6ebf9a54.png) <br/>
 
 
 
