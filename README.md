@@ -60,6 +60,8 @@ If you are getting FK_Acceptances_User error, you can follow the steps below.
 
 `INSERT INTO "Shared"."Users" ("Id", "RoleId", "UserName", "Password", "FirstName", "LastName", "Email", "ContactNo", "PersonnalId", "DateOfBirth", "CreatedDate", "ModifiedDate", "LastLoginAttempt", "CreatedById", "ModifiedById", "TitleId", "SpecialityId", "IsActive", "IsFirstLogin","IsPasswordReset", "TotpSecretKey") VALUES (1, 1, 'string12', '$2a$11$2xI4kDIRd5pjRFKMghHgw.kpG2nbbVru4VjT2515fKd0jj/6AtC3W', 'string', 'string', 'allen@gmail.com', 'string', 'string', '2019-10-10 13:35:19.657000 +00:00', '2019-10-10 13:37:41.443561 +00:00', null, null, null, null, 1, 1, true, false, false, null);` <br/>
 
+(if you get an error message that is <column "Password" of relation "Users" does not exist>, "Password" column and "Password Value" should be removed from the query above.)
+
 ![9](https://user-images.githubusercontent.com/57620464/156519382-631cc620-c661-4dd0-bc34-535c6ebf9a54.png) <br/>
 
 
